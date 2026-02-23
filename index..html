@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Universo Avanzado de Pio Pio 🐥💖</title>
+
+<style>
+html, body {
+margin: 0;
+padding: 0;
+width: 100%;
+height: 100%;
+overflow: hidden;
+font-family: 'Segoe UI', sans-serif;
+background: radial-gradient(circle at top, #1a1a2e, #050510);
+color: white;
+}
+
+/* Parallax (profundidad) */
+#parallax {
+position: fixed;
+width: 120%;
+height: 120%;
+top: -10%;
+left: -10%;
+background: radial-gradient(circle at center, #1b2735, #050510);
+transition: transform 0.2s;
+}
+
+/* Partículas avanzadas */
+.particle {
+position: absolute;
+width: 4px;
+height: 4px;
+background: white;
+border-radius: 50%;
+opacity: 0.7;
+animation: float 10s linear infinite;
+}
+
+@keyframes float {
+from { transform: translateY(100vh); }
+to { transform: translateY(-10vh); }
+}
+
+/* Pollitos 3D simulados */
+.chick {
+position: absolute;
+font-size: 38px;
+animation: chickFloat 8s ease-in-out infinite;
+}
+
+@keyframes chickFloat {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-20px); }
+}
+
+/* Carta */
+#card {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) scale(0);
+background: rgba(255, 255, 255, 0.95);
+color: #333;
+padding: 35px;
+border-radius: 20px;
+box-shadow: 0 0 40px rgba(255, 77, 109, 0.4);
+max-width: 500px;
+text-align: center;
+transition: 0.7s;
+z-index: 5;
+}
+
+/* Botón */
+button {
+padding: 12px 25px;
+background: #ff4d6d;
+border: none;
+border-radius: 30px;
+color: white;
+font-weight: bold;
+cursor: pointer;
+margin-top: 15px;
+}
+
+/* Contador */
+#counter {
+margin-top: 10px;
+font-size: 18px;
+}
+
+/* Mensaje final */
+#final {
+margin-top: 20px;
+font-size: 22px;
+color: #ff4d6d;
+text-shadow: 0 0 15px pink;
+opacity: 0;
+transition: 1.5s;
+}
+</style>
+</head>
+
+<body>
+
+<div id="parallax"></div>
+
+<div id="card">
+<h1>Para mi Pio Pio 🐥💖</h1>
+<p>
+Me gusta tu risa.<br>
+Me gusta tu voz.<br>
+Me gusta cuando te emocionas.<br>
+Me gusta todo de ti.<br><br>
+
+Eres mi prioridad.<br>
+No eres una opción.<br>
+Siempre te elijo.
+</p>
+
+<div id="counter"></div>
+
+<div id="final">
+Gracias por existir.<br>
+Siempre te elijo, Pio Pio 🐥💖
+</div>
+
+<button id="musicBtn">🎵 Tocar música</button>
+</div>
+
+<script>
+
+/* Parallax */
+document.addEventListener("mousemove", function(e){
+let x = (e.clientX / window.innerWidth - 0.5) * 20;
+let y = (e.clientY / window.innerHeight - 0.5) * 20;
+document.getElementById("parallax").style.transform =
+`translate(${x}px, ${y}px)`;
+});
+
+/* Partículas avanzadas */
+for(let i=0;i<200;i++){
+let p = document.createElement("div");
+p.className = "particle";
+p.style.left = Math.random() * 100 + "vw";
+p.style.animationDuration = (6 + Math.random() * 6) + "s";
+document.body.appendChild(p);
+}
+
+/* Pollitos decorativos 3D simulados */
+const chicks = ["🐥","🐤","🐣"];
+for(let i=0;i<25;i++){
+let c = document.createElement("div");
+c.className = "chick";
+c.innerHTML = chicks[Math.floor(Math.random() * chicks.length)];
+c.style.left = Math.random() * 100 + "vw";
+c.style.top = Math.random() * 100 + "vh";
+c.style.animationDuration = (6 + Math.random() * 6) + "s";
+document.body.appendChild(c);
+}
+
+/* Carta al tocar música */
+document.getElementById("musicBtn").addEventListener("click", function(){
+let iframe = document.createElement("iframe");
+iframe.src = "https://www.youtube.com/embed/a_wBQrUdcvk?autoplay=1&loop=1&playlist=a_wBQrUdcvk";
+iframe.width = "0";
+iframe.height = "0";
+iframe.allow = "autoplay";
+document.body.appendChild(iframe);
+
+document.getElementById("card").style.transform = "translate(-50%, -50%) scale(1)";
+document.getElementById("final").style.opacity = "1";
+});
+
+/* Contador desde 6 enero 2026 */
+const startDate = new Date("2026-01-06T00:00:00");
+
+function updateCounter(){
+const now = new Date();
+const diff = now - startDate;
+
+const days = Math.floor(diff / (1000*60*60*24));
+document.getElementById("counter").innerHTML =
+days + " días iluminando mi vida ✨";
+}
+setInterval(updateCounter, 1000);
+updateCounter();
+
+</script>
+
+</body>
+</html>
