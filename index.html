@@ -52,10 +52,10 @@ left: -10%;
 background: radial-gradient(circle at center, #1b2735, #050510);
 }
 
-/* Contenedor de frases */
+/* Lista de frases */
 #story {
 position: absolute;
-top: 38%;
+top: 35%;
 left: 50%;
 transform: translate(-50%, -50%);
 max-width: 800px;
@@ -63,10 +63,10 @@ font-size: 24px;
 line-height: 1.7;
 }
 
-/* Transición bonita */
-.fade {
+#story div {
 opacity: 0;
 animation: fadeIn 2s forwards;
+margin-bottom: 12px;
 }
 
 @keyframes fadeIn {
@@ -81,7 +81,7 @@ font-size: 20px;
 color: #ff4d6d;
 }
 
-/* Pollitos decorativos */
+/* Pollitos */
 .chick {
 position: absolute;
 font-size: 36px;
@@ -94,7 +94,7 @@ opacity: 0.7;
 50% { transform: translateY(-20px); }
 }
 
-/* Botón de música */
+/* Botón música */
 #musicBtn {
 margin-top: 20px;
 padding: 12px 25px;
@@ -117,15 +117,17 @@ cursor: pointer;
 <h1>Toca para entrar al universo de Pio Pío ❤️🐥</h1>
 </div>
 
+<!-- Lista de frases -->
 <div id="story"></div>
 
+<!-- Contador -->
 <div id="counter"></div>
 
 <button id="musicBtn">🎵 Iniciar música</button>
 
 <script>
 
-// Frases que aparecerán una por una (separadas)
+// Frases (aparecen una por una, en lista)
 const phrases = [
 "Para Pio Pío ❤️🐥",
 "Eres trabajador, y eso me gusta.",
@@ -146,14 +148,13 @@ const phrases = [
 let index = 0;
 const story = document.getElementById("story");
 
-// Mostrar frases una por una
+// Mostrar frases una por una (lista)
 function showNextPhrase() {
   if (index >= phrases.length) return;
 
-  let span = document.createElement("span");
-  span.textContent = phrases[index];
-  span.className = "fade";
-  story.appendChild(span);
+  let div = document.createElement("div");
+  div.textContent = phrases[index];
+  story.appendChild(div);
 
   index++;
   setTimeout(showNextPhrase, 3200); // pausa entre frases
@@ -186,7 +187,7 @@ for (let i = 0; i < 16; i++) {
   document.body.appendChild(c);
 }
 
-// Música al iniciar
+// Música al entrar
 document.getElementById("startScreen").addEventListener("click", function(){
   this.style.display = "none";
   document.getElementById("musicBtn").style.display = "block";
@@ -201,7 +202,7 @@ document.getElementById("startScreen").addEventListener("click", function(){
   setTimeout(showNextPhrase, 1200);
 });
 
-// Música alternativa con botón
+// Música con botón
 document.getElementById("musicBtn").addEventListener("click", function(){
   let audio = document.createElement("iframe");
   audio.src = "https://www.youtube.com/embed/WBvMmwTLmD8?autoplay=1&loop=1&playlist=WBvMmwTLmD8";
