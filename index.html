@@ -17,33 +17,7 @@ color: white;
 text-align: center;
 }
 
-/* Pantalla inicial */
-#welcome {
-position: fixed;
-width: 100%;
-height: 100%;
-background: rgba(0,0,0,0.85);
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-z-index: 10;
-cursor: pointer;
-}
-
-#welcome h1 {
-font-size: 30px;
-letter-spacing: 1px;
-animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-0% { opacity: 0.6; }
-50% { opacity: 1; }
-100% { opacity: 0.6; }
-}
-
-/* Fondo aesthetic */
+/* Fondo */
 #background {
 position: fixed;
 width: 120%;
@@ -53,57 +27,53 @@ left: -10%;
 background: radial-gradient(circle at center, #1b2735, #050510);
 }
 
-/* Contenedor principal */
-#mainText {
+/* Contenedor de frases */
+#story {
 position: absolute;
 top: 40%;
 left: 50%;
 transform: translate(-50%, -50%);
-opacity: 0;
-transition: opacity 2s ease;
 max-width: 800px;
+font-size: 24px;
 line-height: 1.7;
 }
 
-#mainText h2 {
-font-size: 38px;
-color: #ff4d6d;
-text-shadow: 0 0 15px pink;
+/* Efecto de escritura */
+#story span {
+display: block;
+opacity: 0;
+animation: fadeIn 2s forwards;
 }
 
-#mainText p {
-font-size: 20px;
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
 }
 
 /* Pollitos decorativos */
 .chick {
 position: absolute;
 font-size: 36px;
-animation: chickFloat 10s ease-in-out infinite;
-opacity: 0.8;
-}
-
-@keyframes chickFloat {
-0%, 100% { transform: translateY(0); }
-50% { transform: translateY(-25px); }
-}
-
-/* Partículas */
-.particle {
-position: absolute;
-width: 3px;
-height: 3px;
-background: white;
-border-radius: 50%;
+animation: float 8s ease-in-out infinite;
 opacity: 0.7;
-animation: floatUp 12s linear infinite;
 }
 
-@keyframes floatUp {
-from { transform: translateY(120vh); }
-to { transform: translateY(-20vh); }
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-20px); }
 }
 
+/* Botón de música */
+#musicBtn {
+margin-top: 20px;
+padding: 12px 25px;
+background: #ff4d6d;
+border: none;
+border-radius: 30px;
+color: white;
+font-weight: bold;
+cursor: pointer;
+}
 </style>
 </head>
 
@@ -111,43 +81,52 @@ to { transform: translateY(-20vh); }
 
 <div id="background"></div>
 
-<div id="welcome">
-<h1>Toca para entrar<br>al universo de Pio Pío ❤️🐥</h1>
-</div>
+<div id="story"></div>
 
-<div id="mainText">
-<h2>Para Pio Pío ❤️🐥</h2>
-<p>
-Es trabajador.<br>
-Le gustan las motos, es motociclista.<br>
-Comenzamos a hablar el 6 de enero de 2026.<br><br>
-
-Me preocupa incluso lo más mínimo que le pase.<br>
-Siempre debe considerarse especial, porque lo es.<br>
-Se merece esto y mucho más.<br><br>
-
-Me gusta su risa, su voz, su forma de ser.<br>
-Es muy bonito, muy hermoso, precioso.<br><br>
-
-Gracias por estar en mi vida.<br>
-Y por ser alguien importante 💖
-</p>
-</div>
+<button id="musicBtn">🎵 Tocar música</button>
 
 <script>
 
-/* Partículas */
-for (let i = 0; i < 160; i++) {
-  let p = document.createElement("div");
-  p.className = "particle";
-  p.style.left = Math.random() * 100 + "vw";
-  p.style.animationDuration = (8 + Math.random() * 8) + "s";
-  document.body.appendChild(p);
+// Frases que aparecerán una por una (como si tú se las dijeras)
+const phrases = [
+"Para ti, Pio Pío ❤️🐥",
+"Eres trabajador, y eso me gusta.",
+"Te admiro por tu esfuerzo.",
+"Te gustan las motos, y se nota tu pasión.",
+"Eres motociclista, y eso dice mucho de ti.",
+"Comenzamos a hablar el 6 de enero de 2026.",
+"Desde ese día, te considero alguien importante.",
+"Me preocupa incluso lo más mínimo que te pase.",
+"Porque te aprecio y te quiero bien.",
+"Siempre debes sentirte especial, porque lo eres.",
+"Eres único, y te mereces lo mejor.",
+"Me gusta tu risa, tu voz, tu forma de ser.",
+"Eres muy bonito, muy hermoso, precioso.",
+"Y eso no es solo apariencia, es tu esencia.",
+"Gracias por estar en mi vida.",
+"Y por hacerla un poco más bonita.",
+"Pio Pío ❤️🐥, siempre contarás conmigo."
+];
+
+let index = 0;
+const story = document.getElementById("story");
+
+// Mostrar frases una por una con efecto
+function showNextPhrase() {
+  if (index >= phrases.length) return;
+
+  let span = document.createElement("span");
+  span.textContent = phrases[index];
+  story.appendChild(span);
+
+  index++;
+
+  setTimeout(showNextPhrase, 3000); // pausa entre frases
 }
 
-/* Pollitos decorativos */
+// Pollitos decorativos
 const chicks = ["🐥","🐤","🐣"];
-for (let i = 0; i < 18; i++) {
+for (let i = 0; i < 16; i++) {
   let c = document.createElement("div");
   c.className = "chick";
   c.innerHTML = chicks[Math.floor(Math.random() * chicks.length)];
@@ -157,18 +136,20 @@ for (let i = 0; i < 18; i++) {
   document.body.appendChild(c);
 }
 
-/* Música + mostrar texto */
-document.getElementById("welcome").addEventListener("click", function(){
-  this.style.display = "none";
-  document.getElementById("mainText").style.opacity = "1";
-
+// Música al tocar (tu canción)
+document.getElementById("musicBtn").addEventListener("click", function(){
   let audio = document.createElement("iframe");
   audio.src = "https://www.youtube.com/embed/WBvMmwTLmD8?autoplay=1&loop=1&playlist=WBvMmwTLmD8";
   audio.width = "0";
   audio.height = "0";
   audio.allow = "autoplay";
   document.body.appendChild(audio);
+
+  this.style.display = "none"; // oculta botón
 });
+
+// Iniciar historia
+setTimeout(showNextPhrase, 1000);
 
 </script>
 
