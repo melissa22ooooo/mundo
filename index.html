@@ -60,7 +60,7 @@ animation: chickFloat 8s ease-in-out infinite;
 position: absolute;
 top: 50%;
 left: 50%;
-transform: translate(-50%, -50%) scale(0);
+transform: translate(-50%, -50%) scale(1);
 background: rgba(255, 255, 255, 0.95);
 color: #333;
 padding: 35px;
@@ -96,8 +96,7 @@ margin-top: 20px;
 font-size: 22px;
 color: #ff4d6d;
 text-shadow: 0 0 15px pink;
-opacity: 0;
-transition: 1.5s;
+opacity: 1;
 }
 </style>
 </head>
@@ -160,7 +159,7 @@ c.style.animationDuration = (6 + Math.random() * 6) + "s";
 document.body.appendChild(c);
 }
 
-/* Carta al tocar música */
+/* Música al tocar */
 document.getElementById("musicBtn").addEventListener("click", function(){
 let iframe = document.createElement("iframe");
 iframe.src = "https://www.youtube.com/embed/a_wBQrUdcvk?autoplay=1&loop=1&playlist=a_wBQrUdcvk";
@@ -168,9 +167,6 @@ iframe.width = "0";
 iframe.height = "0";
 iframe.allow = "autoplay";
 document.body.appendChild(iframe);
-
-document.getElementById("card").style.transform = "translate(-50%, -50%) scale(1)";
-document.getElementById("final").style.opacity = "1";
 });
 
 /* Contador desde 6 enero 2026 */
