@@ -33,7 +33,6 @@ cursor: pointer;
 
 #startScreen h1 {
 font-size: 30px;
-letter-spacing: 1px;
 animation: pulse 2s infinite;
 }
 
@@ -56,7 +55,7 @@ background: radial-gradient(circle at center, #1b2735, #050510);
 /* Contenedor de frases */
 #story {
 position: absolute;
-top: 40%;
+top: 38%;
 left: 50%;
 transform: translate(-50%, -50%);
 max-width: 800px;
@@ -73,6 +72,13 @@ animation: fadeIn 2s forwards;
 @keyframes fadeIn {
 from { opacity: 0; transform: translateY(15px); }
 to { opacity: 1; transform: translateY(0); }
+}
+
+/* Contador */
+#counter {
+margin-top: 20px;
+font-size: 20px;
+color: #ff4d6d;
 }
 
 /* Pollitos decorativos */
@@ -113,33 +119,34 @@ cursor: pointer;
 
 <div id="story"></div>
 
+<div id="counter"></div>
+
 <button id="musicBtn">🎵 Iniciar música</button>
 
 <script>
 
-// Frases que aparecerán una por una (más creativas)
+// Frases que aparecerán una por una (separadas)
 const phrases = [
-"Bienvenido al universo de Pio Pío ❤️🐥",
-"Un pequeño lugar donde las palabras tienen sentido.",
-"Aquí todo es especial, porque está hecho con cariño.",
-"Pienso en ti y en lo importante que eres.",
-"Eres trabajador, y eso dice mucho de tu esfuerzo.",
-"Las motos son parte de tu pasión, y eso te hace único.",
+"Para Pio Pío ❤️🐥",
+"Eres trabajador, y eso me gusta.",
+"Te admiro por tu esfuerzo.",
+"Las motos son tu pasión, y eso te hace único.",
 "Comenzamos a hablar el 6 de enero de 2026.",
-"Desde ese día, guardo esa fecha con cariño.",
+"Esa fecha se volvió especial para mí.",
 "Me preocupa incluso lo más mínimo que te pase.",
 "Porque las personas importantes se cuidan.",
-"Eres especial, y siempre mereces respeto y cuidado.",
+"Eres especial y mereces respeto.",
 "Me gusta tu risa, tu voz, tu forma de ser.",
 "Eres muy bonito, muy hermoso, precioso.",
 "No solo por fuera, sino por quien eres.",
-"Pio Pío ❤️🐥, gracias por estar en mi vida."
+"Gracias por estar en mi vida.",
+"Pio Pío ❤️🐥, siempre serás importante."
 ];
 
 let index = 0;
 const story = document.getElementById("story");
 
-// Mostrar frases con transiciones
+// Mostrar frases una por una
 function showNextPhrase() {
   if (index >= phrases.length) return;
 
@@ -151,6 +158,21 @@ function showNextPhrase() {
   index++;
   setTimeout(showNextPhrase, 3200); // pausa entre frases
 }
+
+// Contador desde 6 de enero de 2026
+const startDate = new Date("2026-01-06T00:00:00");
+
+function updateCounter(){
+  const now = new Date();
+  const diff = now - startDate;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  document.getElementById("counter").innerHTML =
+    "Días desde el 6/01/2026: " + days + " días ✨";
+}
+
+setInterval(updateCounter, 1000);
+updateCounter();
 
 // Pollitos decorativos
 const chicks = ["🐥","🐤","🐣"];
@@ -164,7 +186,7 @@ for (let i = 0; i < 16; i++) {
   document.body.appendChild(c);
 }
 
-// Música al tocar inicio
+// Música al iniciar
 document.getElementById("startScreen").addEventListener("click", function(){
   this.style.display = "none";
   document.getElementById("musicBtn").style.display = "block";
@@ -179,7 +201,7 @@ document.getElementById("startScreen").addEventListener("click", function(){
   setTimeout(showNextPhrase, 1200);
 });
 
-// Botón alternativo de música
+// Música alternativa con botón
 document.getElementById("musicBtn").addEventListener("click", function(){
   let audio = document.createElement("iframe");
   audio.src = "https://www.youtube.com/embed/WBvMmwTLmD8?autoplay=1&loop=1&playlist=WBvMmwTLmD8";
