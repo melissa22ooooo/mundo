@@ -12,9 +12,35 @@ width: 100%;
 height: 100%;
 overflow: hidden;
 font-family: 'Segoe UI', sans-serif;
-background: radial-gradient(circle at top, #1a1a2e, #050510);
+background: black;
 color: white;
 text-align: center;
+}
+
+/* Pantalla de inicio */
+#startScreen {
+position: fixed;
+width: 100%;
+height: 100%;
+background: radial-gradient(circle at top, #1a1a2e, #050510);
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+z-index: 10;
+cursor: pointer;
+}
+
+#startScreen h1 {
+font-size: 30px;
+letter-spacing: 1px;
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0% { opacity: 0.6; }
+50% { opacity: 1; }
+100% { opacity: 0.6; }
 }
 
 /* Fondo */
@@ -38,15 +64,14 @@ font-size: 24px;
 line-height: 1.7;
 }
 
-/* Efecto de escritura */
-#story span {
-display: block;
+/* Transición bonita */
+.fade {
 opacity: 0;
 animation: fadeIn 2s forwards;
 }
 
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(10px); }
+from { opacity: 0; transform: translateY(15px); }
 to { opacity: 1; transform: translateY(0); }
 }
 
@@ -81,47 +106,50 @@ cursor: pointer;
 
 <div id="background"></div>
 
+<!-- Pantalla inicial -->
+<div id="startScreen">
+<h1>Toca para entrar al universo de Pio Pío ❤️🐥</h1>
+</div>
+
 <div id="story"></div>
 
-<button id="musicBtn">🎵 Tocar música</button>
+<button id="musicBtn">🎵 Iniciar música</button>
 
 <script>
 
-// Frases que aparecerán una por una (como si tú se las dijeras)
+// Frases que aparecerán una por una (más creativas)
 const phrases = [
-"Para ti, Pio Pío ❤️🐥",
-"Eres trabajador, y eso me gusta.",
-"Te admiro por tu esfuerzo.",
-"Te gustan las motos, y se nota tu pasión.",
-"Eres motociclista, y eso dice mucho de ti.",
+"Bienvenido al universo de Pio Pío ❤️🐥",
+"Un pequeño lugar donde las palabras tienen sentido.",
+"Aquí todo es especial, porque está hecho con cariño.",
+"Pienso en ti y en lo importante que eres.",
+"Eres trabajador, y eso dice mucho de tu esfuerzo.",
+"Las motos son parte de tu pasión, y eso te hace único.",
 "Comenzamos a hablar el 6 de enero de 2026.",
-"Desde ese día, te considero alguien importante.",
+"Desde ese día, guardo esa fecha con cariño.",
 "Me preocupa incluso lo más mínimo que te pase.",
-"Porque te aprecio y te quiero bien.",
-"Siempre debes sentirte especial, porque lo eres.",
-"Eres único, y te mereces lo mejor.",
+"Porque las personas importantes se cuidan.",
+"Eres especial, y siempre mereces respeto y cuidado.",
 "Me gusta tu risa, tu voz, tu forma de ser.",
 "Eres muy bonito, muy hermoso, precioso.",
-"Y eso no es solo apariencia, es tu esencia.",
-"Gracias por estar en mi vida.",
-"Y por hacerla un poco más bonita.",
-"Pio Pío ❤️🐥, siempre contarás conmigo."
+"No solo por fuera, sino por quien eres.",
+"Pio Pío ❤️🐥, gracias por estar en mi vida."
 ];
 
 let index = 0;
 const story = document.getElementById("story");
 
-// Mostrar frases una por una con efecto
+// Mostrar frases con transiciones
 function showNextPhrase() {
   if (index >= phrases.length) return;
 
   let span = document.createElement("span");
   span.textContent = phrases[index];
+  span.className = "fade";
   story.appendChild(span);
 
   index++;
-
-  setTimeout(showNextPhrase, 3000); // pausa entre frases
+  setTimeout(showNextPhrase, 3200); // pausa entre frases
 }
 
 // Pollitos decorativos
@@ -136,8 +164,11 @@ for (let i = 0; i < 16; i++) {
   document.body.appendChild(c);
 }
 
-// Música al tocar (tu canción)
-document.getElementById("musicBtn").addEventListener("click", function(){
+// Música al tocar inicio
+document.getElementById("startScreen").addEventListener("click", function(){
+  this.style.display = "none";
+  document.getElementById("musicBtn").style.display = "block";
+
   let audio = document.createElement("iframe");
   audio.src = "https://www.youtube.com/embed/WBvMmwTLmD8?autoplay=1&loop=1&playlist=WBvMmwTLmD8";
   audio.width = "0";
@@ -145,11 +176,19 @@ document.getElementById("musicBtn").addEventListener("click", function(){
   audio.allow = "autoplay";
   document.body.appendChild(audio);
 
-  this.style.display = "none"; // oculta botón
+  setTimeout(showNextPhrase, 1200);
 });
 
-// Iniciar historia
-setTimeout(showNextPhrase, 1000);
+// Botón alternativo de música
+document.getElementById("musicBtn").addEventListener("click", function(){
+  let audio = document.createElement("iframe");
+  audio.src = "https://www.youtube.com/embed/WBvMmwTLmD8?autoplay=1&loop=1&playlist=WBvMmwTLmD8";
+  audio.width = "0";
+  audio.height = "0";
+  audio.allow = "autoplay";
+  document.body.appendChild(audio);
+  this.style.display = "none";
+});
 
 </script>
 
